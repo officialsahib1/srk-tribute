@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biography | Shah Rukh Khan</title>
+  <meta name="description" content="The life story, career chapters and key moments of Shah Rukh Khan." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="bio-page">
+
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="fp-header" id="siteHeader">
+    <div class="container fp-header-inner">
+      <a href="index.html" class="logo">SRK<span>.</span></a>
+      <a href="index.html" class="fp-back">&larr; Home</a>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ===== HERO ===== -->
+    <section class="bio-hero" id="bioHero">
+      <div class="bio-scene" aria-hidden="true">
+        <span class="bio-floor"></span>
+        <span class="bio-ring"></span>
+        <span class="bio-ring r2"></span>
+        <span class="bio-orb o1" data-depth="28"></span>
+        <span class="bio-orb o2" data-depth="-24"></span>
+        <span class="bio-orb o3" data-depth="14"></span>
+      </div>
+
+      <div class="container bio-hero-grid">
+        <div class="bio-intro">
+          <p class="eyebrow">Biography</p>
+          <h1 class="bio-title">Shah Rukh Khan</h1>
+          <p class="bio-lead">
+            Write a short introduction here: where the story begins, the first breakthrough,
+            and what has defined the career since. Keep it in your own words and link to your sources.
+          </p>
+
+          <div class="bio-facts">
+            <div class="bio-fact"><span>Born</span><strong> 2 November 1965</strong></div>
+            <div class="bio-fact"><span>Birthplace</span><strong> New Delhi, India</strong></div>
+            <div class="bio-fact"><span>Known for</span><strong> Acting and film production</strong></div>
+            <div class="bio-fact"><span>Career</span><strong> Film and television</strong></div>
+          </div>
+
+          <div class="bio-actions">
+            <a class="btn btn-primary" href="#chapters"> Read the story</a>
+            <a class="btn btn-ghost" href="index.html#films"> View films</a>
+          </div>
+        </div>
+
+        <div class="bio-portrait" id="bioPortrait">
+          <div class="bio-portrait-inner">
+            <img src="images/srk2.jpg" alt="Shah Rukh Khan" />
+            <div class="pt-fallback">Add the portrait as images/srk2.jpg</div>
+            <div class="pt-caption"><span>Portrait</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CHAPTERS (timeline) ===== -->
+    <section class="bio-section" id="chapters">
+      <div class="container">
+        <div class="section-head" data-reveal="flip">
+          <p class="eyebrow">The story</p>
+          <h2 class="section-title">Chapters of a career</h2>
+          <p class="section-sub">Each chapter should be short, sourced, and written in your own words.</p>
+        </div>
+
+        <ol class="bio-timeline">
+          <li class="bio-item" data-reveal="left">
+            <article class="bio-card">
+              <span class="bio-year">Early years</span>
+              <h3>Chapter title</h3>
+              <p>Describe the early life, family background and first interests here.</p>
+            </article>
+          </li>
+
+          <li class="bio-item" data-reveal="right">
+            <article class="bio-card">
+              <span class="bio-year">Education</span>
+              <h3>Chapter title</h3>
+              <p>Describe schooling, college and the moments that shaped the path into acting.</p>
+            </article>
+          </li>
+
+          <li class="bio-item" data-reveal="left">
+            <article class="bio-card">
+              <span class="bio-year">First steps</span>
+              <h3>Chapter title</h3>
+              <p>Describe the first roles, theatre work and early struggles in the industry.</p>
+            </article>
+          </li>
+
+          <li class="bio-item" data-reveal="right">
+            <article class="bio-card">
+              <span class="bio-year">Breakthrough</span>
+              <h3>Chapter title</h3>
+              <p>Describe the film or period that brought wider recognition.</p>
+            </article>
+          </li>
+
+          <li class="bio-item" data-reveal="left">
+            <article class="bio-card">
+              <span class="bio-year">New horizons</span>
+              <h3>Chapter title</h3>
+              <p>Describe new genres, production work and international reach.</p>
+            </article>
+          </li>
+
+          <li class="bio-item" data-reveal="right">
+            <article class="bio-card">
+              <span class="bio-year">Today</span>
+              <h3>Chapter title</h3>
+              <p>Describe recent work, current projects and the legacy so far.</p>
+            </article>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===== KEY MOMENTS (flip cards) ===== -->
+    <section class="bio-section alt" id="moments">
+      <div class="container">
+        <div class="section-head" data-reveal="flip">
+          <p class="eyebrow">Key moments</p>
+          <h2 class="section-title">Turning points</h2>
+          <p class="section-sub">Hover over a card on a computer, or tap it on a phone, to see the detail.</p>
+        </div>
+
+        <div class="bio-moments" data-stagger="up">
+          <article class="flip" tabindex="0" aria-label="Key moment: first big break">
+            <div class="flip-inner">
+              <div class="flip-face flip-front">
+                <span class="flip-year">Year</span>
+                <h3>First big break</h3>
+              </div>
+              <div class="flip-face flip-back">
+                <p>Write one or two sentences about this moment, with a source.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="flip" tabindex="0" aria-label="Key moment: breakthrough film">
+            <div class="flip-inner">
+              <div class="flip-face flip-front">
+                <span class="flip-year">Year</span>
+                <h3>Breakthrough film</h3>
+              </div>
+              <div class="flip-face flip-back">
+                <p>Write one or two sentences about this moment, with a source.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="flip" tabindex="0" aria-label="Key moment: a career milestone">
+            <div class="flip-inner">
+              <div class="flip-face flip-front">
+                <span class="flip-year">Year</span>
+                <h3>Career milestone</h3>
+              </div>
+              <div class="flip-face flip-back">
+                <p>Write one or two sentences about this moment, with a source.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="flip" tabindex="0" aria-label="Key moment: a recognition">
+            <div class="flip-inner">
+              <div class="flip-face flip-front">
+                <span class="flip-year">Year</span>
+                <h3>Recognition</h3>
+              </div>
+              <div class="flip-face flip-back">
+                <p>Write one or two sentences about this moment, with a source.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== QUOTE BAND ===== -->
+    <section class="bio-quote" id="quote">
+      <div class="bio-quote-bg" aria-hidden="true"></div>
+      <div class="container">
+        <blockquote class="bio-blockquote" data-reveal="up">
+          <p>Add a verified quote here, with its source.</p>
+          <cite>&mdash; Source and year</cite>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- ===== VALUES ===== -->
+    <section class="bio-section" id="values">
+      <div class="container">
+        <div class="section-head" data-reveal="flip">
+          <p class="eyebrow">Beyond the screen</p>
+          <h2 class="section-title">Family, work and causes</h2>
+          <p class="section-sub">Only include details from reliable, sourced reports.</p>
+        </div>
+
+        <div class="bio-values" data-stagger="up">
+          <article class="bio-card bio-value">
+            <span class="bio-value-num">01</span>
+            <h3>Family</h3>
+            <p>Write a short, respectful summary of family life that is publicly confirmed.</p>
+          </article>
+
+          <article class="bio-card bio-value">
+            <span class="bio-value-num">02</span>
+            <h3>Causes</h3>
+            <p>Describe charitable work and public causes, with the organisation's name.</p>
+          </article>
+
+          <article class="bio-card bio-value">
+            <span class="bio-value-num">03</span>
+            <h3>Work ethic</h3>
+            <p>Describe the approach to craft, as reported in interviews, with a link.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CALL TO ACTION ===== -->
+    <section class="bio-cta">
+      <div class="container bio-cta-inner" data-reveal="zoom">
+        <p class="eyebrow">Keep exploring</p>
+        <h2 class="section-title">Continue the journey</h2>
+        <div class="bio-actions">
+          <a class="btn btn-primary" href="index.html#films">Films</a>
+          <a class="btn btn-ghost" href="index.html#awards">Awards</a>
+          <a class="btn btn-ghost" href="index.html#photos">Photos</a>
+          <a class="btn btn-ghost" href="index.html#videos">Videos</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="logo">SRK<span>.</span></p>
+      <p class="footer-links">
+        <a href="index.html#films">Films</a>
+        <a href="index.html#awards">Awards</a>
+        <a href="index.html#photos">Photos</a>
+        <a href="index.html#videos">Videos</a>
+      </p>
+      <p class="copyright">
+        &copy; <span id="year"></span> Fan project. Photos and videos belong to their owners.
+      </p>
+    </div>
+  </footer>
+
+  <script src="biography.js"></script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Practical 8 - Registration Form Validation</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f7f6; padding: 20px; }
+        form { background: white; max-width: 420px; margin: auto; padding: 25px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        input, select { width: 100%; padding: 8px; margin: 6px 0 4px 0; box-sizing: border-box; }
+        input[type="radio"], input[type="checkbox"] { width: auto; margin-right: 5px; }
+        .error { color: red; font-size: 12px; display: block; margin-bottom: 8px; }
+        .btn { background: #007BFF; color: white; border: none; padding: 10px; cursor: pointer; border-radius: 4px; width: 48%; }
+        .btn:hover { background: #0056b3; }
+        .btn-reset { background: #6c757d; }
+        .btn-reset:hover { background: #5a6268; }
+    </style>
+</head>
+<body>
+
+    <form id="regForm" onsubmit="return validateForm()">
+        <h3>Student Registration Form</h3>
+
+        <label>Name (Alphabetical):</label>
+        <input type="text" id="name" placeholder="Enter name">
+        <span id="nameError" class="error"></span>
+
+        <label>Roll Number (7-digit):</label>
+        <input type="text" id="roll" placeholder="Enter 7-digit roll number">
+        <span id="rollError" class="error"></span>
+
+        <label>Date of Birth (DOB):</label>
+        <input type="date" id="dob">
+        <span id="dobError" class="error"></span>
+
+        <label>Course (Dropdown):</label>
+        <select id="course">
+            <option value="">Select Course</option>
+            <option value="BCA">BCA</option>
+            <option value="BSc">B.Sc Computer Science</option>
+            <option value="BA">BA</option>
+        </select>
+        <span id="courseError" class="error"></span>
+
+        <label>Gender (Radio):</label><br>
+        <input type="radio" name="gender" value="Male"> Male
+        <input type="radio" name="gender" value="Female"> Female
+        <span id="genderError" class="error"></span>
+        <br>
+
+        <label>Hobbies (Checkboxes):</label><br>
+        <input type="checkbox" name="hobby" value="Reading"> Reading
+        <input type="checkbox" name="hobby" value="Sports"> Sports
+        <span id="hobbyError" class="error"></span>
+        <br><br>
+
+        <button type="submit" class="btn">Submit</button>
+        <button type="reset" class="btn btn-reset">Reset</button>
+    </form>
+
+    <script>
+        function validateForm() {
+            // Clear previous error messages
+            document.querySelectorAll('.error').forEach(e => e.innerHTML = "");
+
+            let name = document.getElementById("name").value.trim();
+            let roll = document.getElementById("roll").value.trim();
+            let dob = document.getElementById("dob").value;
+            let course = document.getElementById("course").value;
+            let gender = document.querySelector('input[name="gender"]:checked');
+            let hobby = document.querySelectorAll('input[name="hobby"]:checked');
+
+            let isValid = true;
+
+            // a. Name should be an alphabetical value (String)
+            let nameRegex = /^[A-Za-z\s]+$/;
+            if (name === "" || !nameRegex.test(name)) {
+                document.getElementById("nameError").innerHTML = "Name must contain alphabets only.";
+                isValid = false;
+            }
+
+            // b. Roll number is a 7-digit numeric value
+            let rollRegex = /^\d{7}$/;
+            if (!rollRegex.test(roll)) {
+                document.getElementById("rollError").innerHTML = "Roll number must be exactly 7 digits.";
+                isValid = false;
+            }
+
+            // c. Non-empty and valid fields like DOB
+            if (dob === "") {
+                document.getElementById("dobError").innerHTML = "DOB cannot be empty.";
+                isValid = false;
+            }
+
+            // Dropdown validation
+            if (course === "") {
+                document.getElementById("courseError").innerHTML = "Please select a course.";
+                isValid = false;
+            }
+
+            // Radio button validation
+            if (!gender) {
+                document.getElementById("genderError").innerHTML = "Please select gender.";
+                isValid = false;
+            }
+
+            // Checkbox validation
+            if (hobby.length === 0) {
+                document.getElementById("hobbyError").innerHTML = "Select at least one hobby.";
+                isValid = false;
+            }
+
+            if (isValid) {
+                alert("Form submitted and validated successfully!");
+            }
+            return isValid;
+        }
+    </script>
+</body>
+</html>

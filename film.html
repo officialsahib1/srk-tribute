@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Film | Shah Rukh Khan</title>
+  <meta name="description" content="Film details, cast, awards and trailer." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="film-page">
+
+  <header class="fp-header">
+    <div class="container fp-header-inner">
+      <a href="index.html" class="logo">SRK<span>.</span></a>
+      <a href="index.html#films" class="fp-back">&larr; All films</a>
+    </div>
+  </header>
+
+  <main id="filmRoot">
+    <noscript>
+      <section class="fp-notfound">
+        <div>
+          <h1 class="fp-title">JavaScript is turned off</h1>
+          <p>Turn on JavaScript to view film details.</p>
+        </div>
+      </section>
+    </noscript>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="logo">SRK<span>.</span></p>
+      <p class="footer-links">
+        <a href="index.html#biography">Biography</a>
+        <a href="index.html#films">Films</a>
+        <a href="index.html#awards">Awards</a>
+        <a href="index.html#photos">Photos</a>
+      </p>
+      <p class="copyright">
+        &copy; <span id="year"></span> Fan project. Photos and videos belong to their owners.
+      </p>
+    </div>
+  </footer>
+
+  <script src="films-data.js"></script>
+  <script src="film-page.js"></script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1285 @@
+/* =========================================================
+   1. THEME
+   ========================================================= */
+:root {
+  --bg: #0b0b0f;
+  --bg-alt: #111118;
+  --surface: #17171f;
+  --text: #f4f4f6;
+  --muted: #a3a3b2;
+  --gold: #d4a84b;
+  --gold-soft: #f0d28a;
+  --border: rgba(255, 255, 255, 0.08);
+  --radius: 14px;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --container: 1120px;
+  --header-h: 72px;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* =========================================================
+   2. BASE
+   ========================================================= */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-h);
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+code { background: var(--surface); padding: 2px 6px; border-radius: 6px; font-size: 0.9em; }
+
+h1, h2, h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.2;
+  margin: 0 0 0.5em;
+}
+
+p { margin: 0 0 1em; color: var(--muted); }
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.skip-link {
+  position: absolute; left: -999px; top: 8px;
+  background: var(--gold); color: #000;
+  padding: 8px 14px; border-radius: 6px; z-index: 300;
+}
+.skip-link:focus { left: 12px; }
+
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+/* Reading progress bar */
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  width: 0;
+  background: linear-gradient(90deg, var(--gold), var(--gold-soft));
+  z-index: 200;
+}
+
+/* =========================================================
+   3. HEADER
+   ========================================================= */
+/* =========================================================
+   3. HEADER AND MENU
+   ========================================================= */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--header-h);
+  z-index: 100;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.site-header.scrolled,
+.site-header.menu-open {
+  background: rgba(11, 11, 15, 0.96);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 1px 0 var(--border);
+}
+
+.header-inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-family: Georgia, serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--text);
+}
+.logo span { color: var(--gold); }
+
+/* Menu button and its wrapper */
+.menu-wrap {
+  position: relative;
+}
+
+/* Invisible bridge so the panel stays open while the pointer moves to it */
+.menu-wrap::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  top: 100%;
+  height: 18px;
+}
+
+.menu-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 20px 9px 16px;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 0.25s, color 0.25s, background 0.25s;
+}
+
+.menu-btn:hover,
+.menu-btn[aria-expanded="true"] {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* Three lines that turn into an X when open */
+.menu-btn-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 18px;
+}
+
+.menu-btn-lines i {
+  display: block;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+  transition: transform 0.3s var(--ease), opacity 0.3s, width 0.3s;
+}
+
+.menu-btn-lines i:nth-child(2) { width: 70%; }
+
+.menu-btn[aria-expanded="true"] .menu-btn-lines i:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+.menu-btn[aria-expanded="true"] .menu-btn-lines i:nth-child(2) {
+  opacity: 0;
+}
+.menu-btn[aria-expanded="true"] .menu-btn-lines i:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* Dropdown panel */
+.menu-panel {
+  position: absolute;
+  top: calc(100% + 14px);
+  right: 0;
+  width: min(640px, calc(100vw - 32px));
+  padding: 22px;
+  background: rgba(17, 17, 24, 0.98);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-12px) scale(0.98);
+  transform-origin: top right;
+  transition: opacity 0.3s var(--ease), transform 0.35s var(--ease), visibility 0.3s;
+  z-index: 110;
+}
+
+.menu-panel.open {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.menu-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  transition: transform 0.25s var(--ease), border-color 0.25s, background 0.25s;
+}
+
+.menu-card:hover,
+.menu-card:focus-visible {
+  transform: translateY(-3px);
+  border-color: rgba(212, 168, 75, 0.55);
+  background: #1c1c26;
+}
+
+/* Cards appear one after another when the panel opens */
+.menu-panel.open .menu-card {
+  animation: menuCardIn 0.45s var(--ease) both;
+  animation-delay: calc(var(--i, 0) * 45ms);
+}
+
+.menu-num {
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+}
+
+.menu-card strong {
+  font-family: Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: var(--text);
+}
+
+.menu-card small {
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+.menu-footer {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.menu-footer a { color: var(--gold); }
+
+@keyframes menuCardIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+} 
+
+/* =========================================================
+   4. HERO (parallax background)
+   ========================================================= */
+/* ===== HERO ===== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  --py: 0px;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(212, 168, 75, 0.25), transparent 45%),
+    linear-gradient(160deg, #1a1a24 0%, #0b0b0f 100%);
+}
+
+/* Layer 1: the photo (bottom) */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url("images/srk2.jpg");
+  background-size: cover;
+  background-position: center 30%;
+  background-repeat: no-repeat;
+  opacity: 0.7;
+  transform: translate3d(0, var(--py), 0) scale(1.15);
+  will-change: transform;
+}
+
+/* Layer 2: the dark fade for readable text */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(11, 11, 15, 0.4) 0%, rgba(11, 11, 15, 0.85) 85%, var(--bg) 100%);
+}
+
+/* Layer 3: the thin gold frame */
+/* Thin gold frame inside the hero, starting below the header */
+.hero::after {
+  content: "";
+  position: absolute;
+  top: calc(var(--header-h) + 8px);
+  right: 22px;
+  bottom: 22px;
+  left: 22px;
+  border: 1px solid rgba(212, 168, 75, 0.5);
+  border-radius: 4px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Layer 4: the text (top) */
+.hero-content {
+  position: relative;
+  z-index: 3;
+  padding-top: var(--header-h);
+  animation: fadeUp 1s var(--ease) both;
+}
+.eyebrow {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+
+.hero h1 {
+  font-size: clamp(2.6rem, 7vw, 5rem);
+  color: var(--text);
+  letter-spacing: 0.02em;
+  margin-bottom: 18px;
+}
+
+.hero-tagline {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  max-width: 620px;
+  margin: 0 auto 34px;
+  color: #d6d6de;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 28px; left: 50%;
+  transform: translateX(-50%);
+  color: var(--gold);
+  font-size: 1.4rem;
+  animation: bounce 2s infinite;
+}
+
+/* =========================================================
+   5. BUTTONS
+   ========================================================= */
+.btn {
+  display: inline-block;
+  padding: 13px 28px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: transform 0.2s, background 0.2s, color 0.2s, border-color 0.2s;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-primary { background: var(--gold); color: #111; }
+.btn-primary:hover { background: var(--gold-soft); }
+.btn-ghost { border: 1px solid rgba(255, 255, 255, 0.35); color: var(--text); }
+.btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+/* =========================================================
+   6. STATS
+   ========================================================= */
+.stats {
+  padding: 56px 0;
+  background: var(--bg-alt);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 24px;
+  text-align: center;
+}
+
+.stat-number {
+  display: block;
+  font-family: Georgia, serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.stat-label {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* =========================================================
+   7. SECTIONS (3D page-depth effect is applied by script.js)
+   ========================================================= */
+.section {
+  padding: 96px 0;
+  transform-origin: 50% 0;
+  will-change: transform;
+}
+.section-alt { background: var(--bg-alt); }
+
+.section-head {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 48px;
+}
+
+.section-title {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  color: var(--text);
+}
+
+.section-sub { font-size: 0.95rem; }
+
+/* =========================================================
+   8. SCROLL ANIMATIONS (one system, driven by data-reveal)
+   Elements start hidden in the position set below.
+   script.js adds .is-visible when they enter the screen.
+   ========================================================= */
+[data-reveal] {
+  opacity: 0;
+  transition:
+    opacity 0.9s ease,
+    transform 0.9s var(--ease);
+  transition-delay: var(--delay, 0ms);
+}
+
+[data-reveal="up"]    { transform: translate3d(0, 56px, 0); }
+[data-reveal="left"]  { transform: translate3d(-90px, 0, 0); }
+[data-reveal="right"] { transform: translate3d(90px, 0, 0); }
+[data-reveal="zoom"]  { transform: scale(0.9); }
+[data-reveal="flip"]  {
+  transform: perspective(1000px) rotateX(18deg) translate3d(0, 40px, 0);
+  transform-origin: 50% 0;
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* =========================================================
+   9. BIOGRAPHY
+   ========================================================= */
+.two-col {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 64px;
+  align-items: center;
+}
+.two-col .section-title { margin-bottom: 20px; }
+
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-left: 2px solid var(--gold);
+}
+
+.timeline li {
+  position: relative;
+  padding: 0 0 28px 28px;
+}
+
+.timeline li::before {
+  content: "";
+  position: absolute;
+  left: -7px; top: 6px;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 0 4px rgba(212, 168, 75, 0.2);
+}
+
+.timeline .year {
+  display: block;
+  color: var(--gold);
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+}
+
+.timeline p { margin: 2px 0 0; color: var(--text); }
+
+/* =========================================================
+   10. FILMS (3D tilt on hover)
+   The outer .film-card receives the scroll animation.
+   The inner .film-tilt handles the hover tilt. They never
+   share a transform, so the two effects do not conflict.
+   ========================================================= */
+.film-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 26px;
+}
+
+.film-card { height: 100%; }
+
+.film-tilt {
+  height: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+  transform-style: preserve-3d;
+}
+
+.film-tilt:hover {
+  border-color: rgba(212, 168, 75, 0.5);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(212, 168, 75, 0.15);
+}
+
+.poster {
+  position: relative;
+  aspect-ratio: 2 / 3;
+  background: linear-gradient(145deg, #2a2a38, #13131a);
+  display: flex;
+  align-items: flex-end;
+  padding: 16px;
+  overflow: hidden;
+}
+
+.poster img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.poster-title {
+  position: relative;
+  z-index: 1;
+  font-family: Georgia, serif;
+  font-size: 1.1rem;
+  line-height: 1.3;
+  color: var(--text);
+}
+
+.film-info { padding: 16px 18px 20px; }
+.film-info h3 { font-size: 1.1rem; color: var(--text); margin-bottom: 4px; }
+.film-meta { font-size: 0.85rem; color: var(--gold); margin: 0; }
+
+/* =========================================================
+   11. AWARDS
+   ========================================================= */
+.award-list {
+  max-width: 760px;
+  margin: 0 auto;
+  display: grid;
+  gap: 14px;
+}
+
+.award-item {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--gold);
+  border-radius: var(--radius);
+  padding: 18px 22px;
+}
+
+.award-year {
+  font-family: Georgia, serif;
+  font-size: 1.3rem;
+  color: var(--gold);
+  min-width: 64px;
+}
+
+.award-item p { margin: 0; color: var(--text); }
+
+/* =========================================================
+   12. PHOTOS (hover uses glow, not transform, so the
+   scroll animation stays clean)
+   ========================================================= */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.photo-tile {
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius);
+  background: repeating-linear-gradient(45deg, var(--surface) 0 12px, #1d1d27 12px 24px);
+  border: 1px dashed rgba(212, 168, 75, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.photo-tile:hover {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 4px rgba(212, 168, 75, 0.12);
+}
+
+.photo-tile span { color: var(--muted); font-size: 0.9rem; }
+
+/* =========================================================
+   13. VIDEOS
+   ========================================================= */
+.video-placeholder {
+  aspect-ratio: 16 / 9;
+  max-width: 880px;
+  margin: 0 auto;
+  border-radius: var(--radius);
+  border: 1px dashed rgba(212, 168, 75, 0.35);
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+}
+
+.video-placeholder p { margin: 0; }
+
+/* =========================================================
+   14. ABOUT
+   ========================================================= */
+.about { max-width: 720px; text-align: center; }
+.about .section-title { margin-bottom: 18px; }
+
+/* =========================================================
+   15. FOOTER
+   ========================================================= */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 48px 0 36px;
+  background: #08080b;
+  text-align: center;
+}
+
+.footer-inner {
+  display: grid;
+  gap: 14px;
+  justify-items: center;
+}
+
+.footer-links {
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0;
+}
+
+.footer-links a { color: var(--muted); font-size: 0.9rem; }
+.footer-links a:hover { color: var(--gold); }
+
+.copyright { font-size: 0.8rem; margin: 0; color: #6e6e7c; }
+
+/* =========================================================
+   16. KEYFRAMES
+   ========================================================= */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translate(-50%, 0); }
+  50%      { transform: translate(-50%, 8px); }
+}
+
+/* =========================================================
+   17. RESPONSIVE
+   ========================================================= */
+@media (max-width: 860px) {
+  .two-col {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .section { padding: 72px 0; }
+}
+
+@media (max-width: 720px) {
+  .hero::before { background-position: center 25%; }
+
+  .hero::after {
+    top: calc(var(--header-h) + 4px);
+    right: 12px;
+    bottom: 12px;
+    left: 12px;
+  }
+
+  .menu-panel {
+    left: 12px;
+    right: 12px;
+    width: auto;
+    top: calc(100% + 8px);
+  }
+
+  .menu-grid { grid-template-columns: 1fr 1fr; }
+  .menu-card small { display: none; }
+
+  .section { transform-origin: 50% 0; }
+}
+
+  .primary-nav {
+    position: fixed;
+    top: var(--header-h);
+    left: 0; right: 0;
+    flex-direction: column;
+    gap: 0;
+    background: rgba(11, 11, 15, 0.98);
+    border-bottom: 1px solid var(--border);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+  }
+
+  .primary-nav.open { max-height: 480px; }
+
+  .primary-nav a {
+    padding: 16px 24px;
+    border-top: 1px solid var(--border);
+  }
+
+  .primary-nav a::after { display: none; }
+
+  /* Keep the 3D page-depth effect lighter on small screens */
+  .section { transform-origin: 50% 0; }
+ 
+
+/* =========================================================
+   18. REDUCED MOTION (accessibility)
+   Visitors who turn on "reduce motion" see everything
+   immediately, with no movement or tilt.
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+
+  .section { transform: none !important; }
+  .hero::before { transform: scale(1.15); }
+  .film-tilt { transform: none; }
+}
+/* =========================================================
+   AWARDS SECTION
+   ========================================================= */
+.awards-section {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 12% 0%, rgba(212, 168, 75, 0.14), transparent 50%),
+    radial-gradient(ellipse at 90% 100%, rgba(212, 168, 75, 0.1), transparent 55%),
+    linear-gradient(180deg, #0d0d13 0%, #06060a 100%);
+}
+
+/* Deep background layers */
+.awards-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.32;
+}
+.orb-1 {
+  width: 420px; height: 420px;
+  top: -140px; left: -120px;
+  background: var(--gold);
+}
+.orb-2 {
+  width: 360px; height: 360px;
+  bottom: -120px; right: -100px;
+  background: #8b5cf6;
+  opacity: 0.12;
+}
+
+/* A faint grid receding into the distance, for depth */
+.floor-grid {
+  position: absolute;
+  left: -20%;
+  right: -20%;
+  bottom: 0;
+  height: 60%;
+  background-image:
+    linear-gradient(rgba(212, 168, 75, 0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212, 168, 75, 0.09) 1px, transparent 1px);
+  background-size: 64px 64px;
+  transform: perspective(700px) rotateX(62deg);
+  transform-origin: bottom center;
+  -webkit-mask-image: linear-gradient(to top, #000 10%, transparent 80%);
+          mask-image: linear-gradient(to top, #000 10%, transparent 80%);
+}
+
+/* Grid of award cards */
+.award-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  perspective: 1200px;
+}
+
+/* Card with curved corners and gold edge */
+.award-card {
+  position: relative;
+  height: 100%;
+  padding: 32px 30px 30px;
+  overflow: hidden;
+  border-radius: 30px 8px 30px 8px;
+  background: linear-gradient(160deg, rgba(31, 31, 44, 0.94), rgba(14, 14, 22, 0.97));
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow:
+    0 24px 50px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateZ(var(--z, 0px));
+  transform-style: preserve-3d;
+  transition: transform 0.45s var(--ease), box-shadow 0.45s ease, border-color 0.45s ease;
+}
+
+/* Gold gradient edge that brightens on hover */
+.award-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(240, 210, 138, 0.7), transparent 38%, transparent 62%, rgba(212, 168, 75, 0.4));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  opacity: 0.45;
+  transition: opacity 0.45s ease;
+  pointer-events: none;
+}
+
+/* Light that follows the cursor */
+.award-shine {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(240, 210, 138, 0.22), transparent 45%);
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  pointer-events: none;
+}
+
+.award-card:hover {
+  border-color: rgba(212, 168, 75, 0.35);
+  box-shadow:
+    0 34px 70px rgba(0, 0, 0, 0.6),
+    0 0 42px rgba(212, 168, 75, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.award-card:hover::before { opacity: 1; }
+.award-card:hover .award-shine { opacity: 1; }
+
+/* Top row: medal icon and year */
+.award-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+
+.award-icon {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  color: #111;
+  background: radial-gradient(circle at 30% 30%, var(--gold-soft), var(--gold) 60%, #9a7426);
+  box-shadow: 0 8px 20px rgba(212, 168, 75, 0.3);
+  transition: transform 0.45s var(--ease);
+}
+.award-card:hover .award-icon { transform: rotate(-12deg) scale(1.08); }
+
+.award-year {
+  font-family: Georgia, serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.03em;
+}
+
+.award-name {
+  font-size: 1.25rem;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.award-film {
+  font-size: 0.9rem;
+  color: var(--gold-soft);
+  margin: 0 0 12px;
+}
+
+.award-note {
+  font-size: 0.92rem;
+  margin: 0;
+  color: var(--muted);
+}
+
+/* Responsive */
+@media (max-width: 720px) {
+  .award-grid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    perspective: none;
+  }
+  .award-card { padding: 26px 22px; border-radius: 24px 6px 24px 6px; }
+  .orb { filter: blur(60px); }
+}
+
+/* Reduced motion: no tilt, no hover movement */
+@media (prefers-reduced-motion: reduce) {
+  .award-card,
+  .award-card::before,
+  .award-shine,
+  .award-icon {
+    transform: none !important;
+    transition: none !important;
+  }
+}
+/* =========================================================
+   FILMS SECTION (layout, 3D background, filters, cards)
+   ========================================================= */
+.films-section {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 50% -10%, rgba(212, 168, 75, 0.14), transparent 55%),
+    linear-gradient(180deg, #0a0a10 0%, #07070b 100%);
+}
+
+.films-section .container { position: relative; z-index: 1; }
+
+/* 3D background layers */
+.films-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  perspective: 900px;
+}
+
+/* Grid floor receding into depth, slowly moving toward the viewer */
+.films-grid-floor {
+  position: absolute;
+  left: -40%;
+  right: -40%;
+  bottom: -10%;
+  height: 75%;
+  background-image:
+    linear-gradient(rgba(212, 168, 75, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212, 168, 75, 0.12) 1px, transparent 1px);
+  background-size: 60px 60px;
+  transform: rotateX(68deg);
+  transform-origin: 50% 100%;
+  -webkit-mask-image: linear-gradient(to top, #000 15%, transparent 85%);
+          mask-image: linear-gradient(to top, #000 15%, transparent 85%);
+  animation: floorMove 6s linear infinite;
+}
+
+@keyframes floorMove {
+  from { background-position: 0 0, 0 0; }
+  to   { background-position: 0 60px, 0 0; }
+}
+
+/* Dashed ring turning slowly in 3D */
+.films-ring {
+  position: absolute;
+  top: 8%;
+  left: 50%;
+  width: min(760px, 120vw);
+  aspect-ratio: 1;
+  translate: -50% 0;
+  border-radius: 50%;
+  border: 1px dashed rgba(212, 168, 75, 0.16);
+  transform: rotateX(72deg) rotateZ(0deg);
+  animation: ringSpin 40s linear infinite;
+}
+
+@keyframes ringSpin {
+  from { transform: rotateX(72deg) rotateZ(0deg); }
+  to   { transform: rotateX(72deg) rotateZ(360deg); }
+}
+
+/* Soft glowing orbs */
+.films-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.3;
+  animation: orbFloat 14s ease-in-out infinite alternate;
+}
+.f-orb-1 { width: 380px; height: 380px; top: -120px; right: -100px; background: var(--gold); }
+.f-orb-2 { width: 320px; height: 320px; bottom: 10%; left: -120px; background: #3b82f6; opacity: 0.12; animation-delay: -6s; }
+
+@keyframes orbFloat {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(40px, 30px, 0) scale(1.08); }
+}
+
+/* Filter chips */
+.film-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: -16px auto 44px;
+  position: relative;
+  z-index: 1;
+}
+
+.chip {
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: color 0.25s, border-color 0.25s, background 0.25s, box-shadow 0.25s, transform 0.25s var(--ease);
+}
+
+.chip:hover {
+  color: var(--text);
+  border-color: rgba(212, 168, 75, 0.6);
+  transform: translateY(-2px);
+}
+
+.chip.is-active {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #111;
+  font-weight: 600;
+  box-shadow: 0 10px 24px rgba(212, 168, 75, 0.25);
+}
+
+/* Film grid */
+.films-section .film-grid {
+  position: relative;
+  z-index: 1;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 32px;
+  perspective: 1200px;
+}
+
+/* Cards stay hidden until the grid scrolls into view (set in script.js) */
+.films-section .film-card { opacity: 0; }
+
+.films-section .film-grid.is-live .film-card {
+  opacity: 1;
+  animation: filmIn 0.8s var(--ease) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+
+@keyframes filmIn {
+  from { opacity: 0; transform: translate3d(0, 50px, 0) rotateX(12deg); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Card surface */
+.films-section .film-tilt {
+  position: relative;
+  border-radius: 20px;
+  background: linear-gradient(160deg, #1d1d28, #101017);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 22px 44px rgba(0, 0, 0, 0.5);
+  transition: transform 0.4s var(--ease), box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+.films-section .film-tilt:hover {
+  border-color: rgba(212, 168, 75, 0.45);
+  box-shadow: 0 34px 70px rgba(0, 0, 0, 0.65), 0 0 40px rgba(212, 168, 75, 0.16);
+}
+
+/* Light sheen that follows the cursor */
+.films-section .film-tilt::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(240, 210, 138, 0.2), transparent 45%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 2;
+}
+
+.films-section .film-tilt:hover::after { opacity: 1; }
+
+.films-section .film-info {
+  position: relative;
+  z-index: 1;
+  padding: 18px 20px 22px;
+}
+
+.films-section .film-info h3 {
+  font-size: 1.15rem;
+  margin-bottom: 8px;
+}
+
+.films-section .film-meta {
+  display: inline-block;
+  margin: 0;
+  padding: 3px 10px;
+  border: 1px solid rgba(212, 168, 75, 0.35);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* "Show more" button */
+.film-more {
+  text-align: center;
+  margin-top: 52px;
+  position: relative;
+  z-index: 1;
+}
+
+/* [hidden] must win over .btn's display rule */
+
+
+/* Responsive */
+@media (max-width: 720px) {
+  .films-section .film-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .films-grid-floor { height: 55%; }
+  .films-ring { display: none; }
+  .film-filters { gap: 8px; }
+  .chip { padding: 7px 14px; font-size: 0.8rem; }
+}
+
+@media (max-width: 420px) {
+  .films-section .film-grid { grid-template-columns: 1fr; }
+}
+
+/* Reduced motion: no movement, cards shown immediately */
+@media (prefers-reduced-motion: reduce) {
+  .films-grid-floor,
+  .films-orb,
+  .films-ring { animation: none; }
+
+  .films-section .film-card,
+  .films-section .film-grid.is-live .film-card {
+    opacity: 1;
+    animation: none;
+  }
+}
+/* =========================================================
+   CURSOR GLOW EFFECT (used by cursor-fx.js)
+   ========================================================= */
+.cfx {
+  position: fixed;
+  inset: 0;
+  z-index: 50;             /* above page content, below the header (100) */
+  pointer-events: none;    /* never blocks clicks */
+  overflow: hidden;
+  mix-blend-mode: screen;  /* brightens the dark background like light */
+  opacity: 0;
+  transition: opacity 0.4s ease, filter 0.5s ease;
+}
+
+.cfx.is-on { opacity: 1; }
+
+/* Over links and cards: shift the colours and grow the glow */
+.cfx.is-hot {
+  filter: hue-rotate(35deg) saturate(1.25);
+}
+
+.cfx-blob {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 440px;
+  height: 440px;
+  margin: -220px 0 0 -220px;
+  border-radius: 50%;
+  will-change: transform;
+  transition: scale 0.6s var(--ease);
+}
+
+.cfx-a {
+  background: radial-gradient(circle, rgba(255, 138, 61, 0.55) 0%, rgba(255, 138, 61, 0) 65%);
+}
+
+.cfx-b {
+  width: 300px;
+  height: 300px;
+  margin: -150px 0 0 -150px;
+  background: radial-gradient(circle, rgba(255, 95, 210, 0.5) 0%, rgba(255, 95, 210, 0) 65%);
+}
+
+.cfx-c {
+  width: 520px;
+  height: 520px;
+  margin: -260px 0 0 -260px;
+  background: radial-gradient(circle, rgba(123, 140, 255, 0.4) 0%, rgba(123, 140, 255, 0) 65%);
+}
+
+.cfx.is-hot .cfx-blob { scale: 1.25; }
+
+/* Click ring */
+.cfx-ring {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border-radius: 50%;
+  border: 1px solid rgba(240, 210, 138, 0.7);
+  pointer-events: none;
+  animation: cfxRing 0.7s var(--ease) forwards;
+}
+
+@keyframes cfxRing {
+  from { transform: scale(0.2); opacity: 1; }
+  to   { transform: scale(3.2); opacity: 0; }
+}
+
+/* Safety: hide the glow entirely for reduced motion and touch screens */
+@media (prefers-reduced-motion: reduce) {
+  .cfx { display: none; }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .cfx { display: none; }
+}

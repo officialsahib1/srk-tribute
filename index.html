@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shah Rukh Khan | Life, Films and Achievements</title>
+  <meta name="description" content="A fan-made overview of the life, films, awards and milestones of Shah Rukh Khan." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="scroll-progress" id="scrollProgress"></div>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header" id="siteHeader">
+    <div class="container header-inner">
+      <a href="#home" class="logo">SRK<span>.</span></a>
+
+      <div class="menu-wrap" id="menuWrap">
+        <button class="menu-btn" id="menuBtn" type="button"
+                aria-expanded="false" aria-controls="menuPanel" aria-haspopup="true">
+          <span class="menu-btn-lines" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="menu-btn-text">Menu</span>
+        </button>
+
+        <nav class="menu-panel" id="menuPanel" aria-label="All pages">
+          <div class="menu-grid">
+            <a href="#home" class="menu-card" style="--i:0">
+              <span class="menu-num">01</span>
+              <strong>Home</strong>
+              <small>Welcome and overview</small>
+            </a>
+            <a href="biography.html" class="menu-card" style="--i:1">
+              <span class="menu-num">02</span>
+              <strong>Biography</strong>
+              <small>The story and career timeline</small>
+            </a>
+            <a href="#films" class="menu-card" style="--i:2">
+              <span class="menu-num">03</span>
+              <strong>Films</strong>
+              <small>Selected filmography</small>
+            </a>
+            <a href="#awards" class="menu-card" style="--i:3">
+              <span class="menu-num">04</span>
+              <strong>Awards</strong>
+              <small>Recognition and achievements</small>
+            </a>
+            <a href="#photos" class="menu-card" style="--i:4">
+              <span class="menu-num">05</span>
+              <strong>Photos</strong>
+              <small>Gallery of images</small>
+            </a>
+            <a href="#videos" class="menu-card" style="--i:5">
+              <span class="menu-num">06</span>
+              <strong>Videos</strong>
+              <small>Trailers and interviews</small>
+            </a>
+            <a href="#about" class="menu-card" style="--i:6">
+              <span class="menu-num">07</span>
+              <strong>About</strong>
+              <small>About this fan project</small>
+            </a>
+          </div>
+          <div class="menu-footer">
+            <span>Explore every section of the site</span>
+            <a href="#films">Start with films &rarr;</a>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </header>
+   <main id="main">
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="home">
+      <div class="hero-overlay"></div>
+      <div class="container hero-content">
+        <p class="eyebrow">A tribute to three decades of cinema</p>
+        <h1>Shah Rukh Khan</h1>
+        <p class="hero-tagline">
+          Three decades of films, one journey. Explore his story, his work and his milestones.
+        </p>
+        <div class="hero-actions">
+          <a href="#films" class="btn btn-primary">Explore films</a>
+          <a href="#biography" class="btn btn-ghost">Read the story</a>
+        </div>
+      </div>
+      <a href="#stats" class="scroll-hint" aria-label="Scroll down">&#8595;</a>
+    </section>
+
+    <!-- ===== STATS ===== -->
+    <!-- Placeholder numbers: replace them with figures you have verified. -->
+    <section class="stats" id="stats">
+      <div class="container stats-grid">
+        <div class="stat">
+          <span class="stat-number" data-count="80">0</span>
+          <span class="stat-label">Films</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number" data-count="15">0</span>
+          <span class="stat-label">Awards</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number" data-count="30">0</span>
+          <span class="stat-label">Years in cinema</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number" data-count="100">0</span>
+          <span class="stat-label">Photos &amp; videos</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== BIOGRAPHY ===== -->
+    <section class="section" id="biography">
+      <div class="container two-col">
+        <div data-reveal="left">
+          <p class="eyebrow">Biography</p>
+          <h2 class="section-title">A journey from the stage to the screen</h2>
+          <p>
+            Write a short introduction here: where the story begins, the first breakthrough,
+            and what made the career memorable. Keep sentences in your own words and
+            cite your sources.
+          </p>
+          <p>
+            Use the chapters on the right to tell the story in order. Each chapter should
+            be short enough to read in under a minute.
+          </p>
+        </div>
+
+        <ol class="timeline" data-stagger="right">
+          <li><span class="year">1990s</span><p>Early career and first major roles</p></li>
+          <li><span class="year">2000s</span><p>Breakthrough years and a wider audience</p></li>
+          <li><span class="year">2010s</span><p>New genres and international recognition</p></li>
+          <li><span class="year">2020s</span><p>Continued success and new challenges</p></li>
+        </ol>
+      </div>
+    </section>
+
+        <!-- ===== FILMS ===== -->
+    <section class="section films-section" id="films">
+      <div class="films-bg" aria-hidden="true">
+        <span class="films-grid-floor"></span>
+        <span class="films-ring"></span>
+        <span class="films-orb f-orb-1"></span>
+        <span class="films-orb f-orb-2"></span>
+      </div>
+
+      <div class="container">
+        <div class="section-head" data-reveal="flip">
+          <p class="eyebrow">Filmography</p>
+          <h2 class="section-title">Selected films</h2>
+          <p class="section-sub">Filter by decade, or explore the full list.</p>
+        </div>
+
+        <div class="film-filters" id="filmFilters" role="group" aria-label="Filter films by decade">
+          <button class="chip is-active" data-filter="all" type="button" aria-pressed="true">All</button>
+          <button class="chip" data-filter="1990s" type="button" aria-pressed="false">1990s</button>
+          <button class="chip" data-filter="2000s" type="button" aria-pressed="false">2000s</button>
+          <button class="chip" data-filter="2010s" type="button" aria-pressed="false">2010s</button>
+          <button class="chip" data-filter="2020s" type="button" aria-pressed="false">2020s</button>
+        </div>
+
+        <div class="film-grid" id="filmGrid"></div>
+
+        <div class="film-more">
+          <button class="btn btn-ghost" id="filmMoreBtn" type="button" data-mode="more">Show more films</button>
+        </div>
+      </div>
+    </section>
+
+        <!-- ===== AWARDS ===== -->
+    <section class="section awards-section" id="awards">
+      <div class="awards-bg" aria-hidden="true">
+        <span class="orb orb-1"></span>
+        <span class="orb orb-2"></span>
+        <span class="floor-grid"></span>
+      </div>
+
+      <div class="container">
+        <div class="section-head" data-reveal="flip">
+          <p class="eyebrow">Recognition</p>
+          <h2 class="section-title">Awards and achievements</h2>
+          <p class="section-sub">Confirm every entry against the official awards website before publishing.</p>
+        </div>
+
+        <div class="award-grid" data-stagger="up">
+          <div class="award-wrap">
+            <article class="award-card">
+              <div class="award-shine" aria-hidden="true"></div>
+              <div class="award-top">
+                <span class="award-icon" aria-hidden="true">&#10022;</span>
+                <span class="award-year">2024</span>
+              </div>
+              <h3 class="award-name">Award name</h3>
+              <p class="award-film">Film or work</p>
+              <p class="award-note">Category and a short description of the recognition.</p>
+            </article>
+          </div>
+
+          <div class="award-wrap">
+            <article class="award-card">
+              <div class="award-shine" aria-hidden="true"></div>
+              <div class="award-top">
+                <span class="award-icon" aria-hidden="true">&#10022;</span>
+                <span class="award-year">2023</span>
+              </div>
+              <h3 class="award-name">Award name</h3>
+              <p class="award-film">Film or work</p>
+              <p class="award-note">Category and a short description of the recognition.</p>
+            </article>
+          </div>
+
+          <div class="award-wrap">
+            <article class="award-card">
+              <div class="award-shine" aria-hidden="true"></div>
+              <div class="award-top">
+                <span class="award-icon" aria-hidden="true">&#10022;</span>
+                <span class="award-year">2010</span>
+              </div>
+              <h3 class="award-name">Award name</h3>
+              <p class="award-film">Film or work</p>
+              <p class="award-note">Category and a short description of the recognition.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PHOTOS ===== -->
+    <section class="section section-alt" id="photos">
+      <div class="container">
+        <div class="section-head" data-reveal="flip">
+          <p class="eyebrow">Gallery</p>
+          <h2 class="section-title">Photo gallery</h2>
+          <p class="section-sub">Use only photos you have permission to publish.</p>
+        </div>
+        <div class="photo-grid" data-stagger="zoom">
+          <div class="photo-tile"><span>Add photo</span></div>
+          <div class="photo-tile"><span>Add photo</span></div>
+          <div class="photo-tile"><span>Add photo</span></div>
+          <div class="photo-tile"><span>Add photo</span></div>
+          <div class="photo-tile"><span>Add photo</span></div>
+          <div class="photo-tile"><span>Add photo</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== VIDEOS ===== -->
+    <section class="section" id="videos">
+      <div class="container">
+        <div class="section-head" data-reveal="flip">
+          <p class="eyebrow">Videos</p>
+          <h2 class="section-title">Trailers and interviews</h2>
+          <p class="section-sub">Embed official videos from YouTube channels.</p>
+        </div>
+        <div class="video-placeholder" data-reveal="zoom">
+          <p>Paste an official YouTube embed here.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ABOUT / DISCLAIMER ===== -->
+    <section class="section section-alt" id="about">
+      <div class="container about" data-reveal="up">
+        <p class="eyebrow">About this site</p>
+        <h2 class="section-title">Unofficial fan project</h2>
+        <p>
+          This website is an independent fan project. It is not affiliated with, endorsed by,
+          or connected to the actor, his production company or any agency. Content is shared
+          for information and appreciation.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="logo">SRK<span>.</span></p>
+      <p class="footer-links">
+        <a href="#biography">Biography</a>
+        <a href="#films">Films</a>
+        <a href="#awards">Awards</a>
+        <a href="#photos">Photos</a>
+      </p>
+      <p class="copyright">
+        &copy; <span id="year"></span> Fan project. Photos and videos belong to their owners.
+      </p>
+    </div>
+  </footer>
+    <script src="films-data.js"></script>
+
+  <script src="script.js"></script>
+    <script src="cursor-fx.js"></script>
+</body>
+</html>
